@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta charset="UTF-8">
-        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -14,9 +14,8 @@
         body {
             background: linear-gradient(135deg, #f5f7fa, #e4edf9);
             color: #333;
-            padding: 12px; 
+            padding: 12px;
             min-height: 100vh;
-            
         }
 
         .container {
@@ -26,41 +25,41 @@
 
         header {
             text-align: center;
-            padding: 15px 0 10px; 
-            margin-bottom: 10px; 
+            padding: 15px 0 10px;
+            margin-bottom: 10px;
         }
 
         h1 {
-            font-size: 1.8rem; /* 减小标题大小 */
-            margin-bottom: 5px; /* 减小底部外边距 */
+            font-size: 1.8rem;
+            margin-bottom: 5px;
             color: #2c3e50;
             text-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .subtitle {
-            font-size: 0.7rem; /* 减小副标题大小 */
+            font-size: 0.7rem;
             color: #5a6b82;
             max-width: 800px;
             margin: 0 auto;
             line-height: 1.4;
-            padding: 0 10px; /* 添加两侧内边距 */
+            padding: 0 10px;
         }
 
         .chart-container {
             background: #ffffff;
-            border-radius: 10px; /* 减小圆角 */
-            box-shadow: 0 4px 20px rgba(0, 40, 100, 0.08); /* 减小阴影 */
-            padding: 15px; /* 减小内边距 */
-            margin-bottom: 15px; /* 减小底部外边距 */
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 40, 100, 0.08);
+            padding: 15px;
+            margin-bottom: 15px;
             border: 1px solid #e1e8ed;
-            height: 500px; /* 减小容器高度 */
+            height: 500px;
         }
 
         .controls {
             display: flex;
             justify-content: center;
-            gap: 6px; /* 减小按钮间距 */
-            margin: 8px 0 10px; /* 减小上下外边距 */
+            gap: 6px;
+            margin: 8px 0 10px;
             flex-wrap: wrap;
         }
 
@@ -68,13 +67,13 @@
             background: #4a77d4;
             border: none;
             color: white;
-            padding: 6px 14px; /* 减小按钮内边距 */
+            padding: 6px 14px;
             border-radius: 24px;
             cursor: pointer;
-            font-size: 0.75rem; /* 减小按钮字体 */
+            font-size: 0.75rem;
             transition: all 0.3s ease;
             box-shadow: 0 2px 4px rgba(74, 119, 212, 0.2);
-            min-width: 100px; /* 确保按钮宽度一致 */
+            min-width: 100px;
         }
 
             .btn:hover {
@@ -85,19 +84,19 @@
 
         .legend-info {
             text-align: center;
-            margin-top: 13px; /* 减小上边距 */
+            margin-top: 13px;
             color: #6c7a89;
-            font-size: 0.8rem; /* 减小字体 */
-            padding: 7px; /* 减小内边距 */
+            font-size: 0.8rem;
+            padding: 7px;
             background: rgba(232, 240, 254, 0.5);
-            border-radius: 6px; /* 减小圆角 */
+            border-radius: 6px;
         }
 
         .footer {
             text-align: center;
-            margin-top: 13px; /* 减小上边距 */
+            margin-top: 13px;
             color: #7a8ca5;
-            font-size: 1rem; /* 减小字体 */
+            font-size: 1rem;
             padding-bottom: 5px;
         }
 
@@ -107,28 +106,28 @@
             }
 
             .chart-container {
-                height: 500px; /* 减小移动端高度 */
-                padding: 8px; /* 减小内边距 */
+                height: 500px;
+                padding: 8px;
             }
 
             h1 {
-                font-size: 1rem; /* 减小移动端标题 */
+                font-size: 1rem;
                 margin-bottom: 6px;
             }
 
             .subtitle {
-                font-size: 0.72rem; /* 减小移动端副标题 */
+                font-size: 0.72rem;
                 line-height: 1.3;
             }
 
             .controls {
-                gap: 5px; /* 减小移动端按钮间距 */
+                gap: 5px;
                 margin: 8px 0 10px;
             }
 
             .btn {
-                padding: 6px 10px; /* 减小移动端按钮内边距 */
-                font-size: 0.78rem; /* 减小移动端按钮字体 */
+                padding: 6px 10px;
+                font-size: 0.78rem;
                 min-width: 100px;
             }
         }
@@ -138,7 +137,7 @@
     <div class="container">
         <header>
             <h1>2010-2020年长三角区域各市夜间灯光亮度总值</h1>
-            
+
         </header>
 
         <div class="controls">
@@ -151,7 +150,7 @@
 
         <div id="chart" class="chart-container"></div>
 
-        
+
     </div>
 
     <script>
@@ -186,17 +185,15 @@
             { name: '上海市', values: [23322.04331, 31552.67302, 21580.16688, 40633.93108, 38678.76638, 39938.10162, 39675.96637, 43668.19404, 43980.69272, 44657.16526, 45587.60629] }
         ];
 
-        // 年份
+
         const years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'];
         let isStacked = true;
         let chart = null;
 
-        // 初始化图表
         function initChart() {
             const chartDom = document.getElementById('chart');
             chart = echarts.init(chartDom);
 
-            // 准备系列数据
             const series = years.map((year, index) => {
                 return {
                     name: year,
@@ -218,10 +215,10 @@
                         let result = `<div style="font-weight:bold;margin-bottom:6px;font-size:0.9rem">${params[0].name}</div>`;
                         params.forEach(param => {
                             result += `<div style="display:flex;align-items:center;margin-bottom:3px;font-size:0.85rem">
-                                            <span style="display:inline-block;margin-right:6px;border-radius:3px;width:12px;height:12px;background-color:${param.color}"></span>
-                                            <span style="flex:1;">${param.seriesName}:</span>
-                                            <span style="font-weight:bold;">${param.value.toFixed(2)}</span>
-                                        </div>`;
+                                                <span style="display:inline-block;margin-right:6px;border-radius:3px;width:12px;height:12px;background-color:${param.color}"></span>
+                                                <span style="flex:1;">${param.seriesName}:</span>
+                                                <span style="font-weight:bold;">${param.value.toFixed(2)}</span>
+                                            </div>`;
                         });
                         return result;
                     }
@@ -230,23 +227,23 @@
                     data: years,
                     textStyle: {
                         color: '#5a6b82',
-                        fontSize: 13 // 减小图例字体
+                        fontSize: 13
                     },
                     bottom: 2,
                     type: 'scroll',
-                    padding: [8, 40], // 减小图例内边距
+                    padding: [8, 40],
                     pageIconColor: '#4a77d4',
                     pageTextStyle: { color: '#7a8ca5', fontSize: 10 },
                     pageIconSize: 12,
-                    itemGap: 9, // 减小图例间距
-                    itemWidth: 15, // 减小图例宽度
-                    itemHeight: 12 // 减小图例高度
+                    itemGap: 9,
+                    itemWidth: 15,
+                    itemHeight: 12
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
-                    bottom: '13%', // 调整底部空间
-                    top: '8%', // 调整顶部空间
+                    bottom: '13%',
+                    top: '8%',
                     containLabel: true
                 },
                 xAxis: {
@@ -257,8 +254,8 @@
                         color: '#5a6b82',
                         interval: 0,
                         rotate: 30,
-                        margin: 12, // 减小标签间距
-                        fontSize: 11 // 减小轴标签字体
+                        margin: 12,
+                        fontSize: 11
                     },
                     axisTick: {
                         show: false
@@ -269,16 +266,16 @@
                     name: '夜间灯光亮度总值（nW/cm²/sr⁻¹）',
                     nameTextStyle: {
                         color: '#5a6b82',
-                        fontSize: 11 // 减小轴名称字体
+                        fontSize: 11
                     },
                     axisLine: { show: true, lineStyle: { color: '#d1dbe7' } },
                     axisLabel: {
                         color: '#5a6b82',
-                        fontSize: 11 // 减小轴标签字体
+                        fontSize: 11
                     },
                     splitLine: { lineStyle: { color: '#f0f4f9' } },
                     nameLocation: 'end',
-                    nameGap: 10 // 减小名称与轴的距离
+                    nameGap: 10
                 },
                 series: series,
                 dataZoom: [
@@ -292,9 +289,9 @@
                     {
                         type: 'slider',
                         show: true,
-                        bottom: 40, // 调整缩放条位置
-                        height: 20, // 减小缩放条高度
-                        start: 0, // 初始位置0%
+                        bottom: 40,
+                        height: 20,
+                        start: 0,
                         end: 100,
                         backgroundColor: 'rgba(232, 240, 254, 0.5)',
                         dataBackground: {
@@ -305,9 +302,9 @@
                         borderColor: 'rgba(74, 119, 212, 0.4)',
                         textStyle: {
                             color: '#5a6b82',
-                            fontSize: 10 // 减小缩放条字体
+                            fontSize: 10
                         },
-                        handleSize: 16, // 减小缩放把手尺寸
+                        handleSize: 15,
                         handleStyle: {
                             color: '#4a77d4'
                         },
@@ -318,19 +315,18 @@
                     '#5470c6', '#91cc75', '#fac858', '#d14a61',
                     '#73c0de', '#3ba272', '#1DDBC0',
                     '#9a60b4', '#ea7ccc', '#1e90ff',
-                    '#ff8c00' 
+                    '#ff8c00'
                 ]
             };
 
             chart.setOption(option);
 
-            // 添加窗口大小变化时的自适应
             window.addEventListener('resize', function () {
                 chart.resize();
             });
         }
 
-        // 排序函数
+
         function sortData(type) {
             if (type === 'total') {
                 cityData.sort((a, b) => {
@@ -348,7 +344,6 @@
                 cityData.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
             }
 
-            // 更新图表
             chart.setOption({
                 xAxis: { data: cityData.map(city => city.name) },
                 series: years.map((year, index) => {
@@ -359,19 +354,16 @@
             });
         }
 
-        // 切换堆叠/分组模式
         function toggleStack() {
             isStacked = !isStacked;
             initChart();
         }
 
-        // 重置图表
         function resetChart() {
             cityData.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
             initChart();
         }
 
-        // 初始化
         window.onload = function () {
             initChart();
         };
