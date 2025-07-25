@@ -1,10 +1,8 @@
-﻿<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html >
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>城市灯光数据可视化</title>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -16,8 +14,9 @@
         body {
             background: linear-gradient(135deg, #f5f7fa, #e4edf9);
             color: #333;
-            padding: 20px;
+            padding: 12px; 
             min-height: 100vh;
+            overflow-y: hidden;
         }
 
         .container {
@@ -27,40 +26,41 @@
 
         header {
             text-align: center;
-            padding: 30px 0;
-            margin-bottom: 30px;
+            padding: 15px 0 10px; 
+            margin-bottom: 10px; 
         }
 
         h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
+            font-size: 1.8rem; /* 减小标题大小 */
+            margin-bottom: 8px; /* 减小底部外边距 */
             color: #2c3e50;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 0.85rem; /* 减小副标题大小 */
             color: #5a6b82;
             max-width: 800px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.4;
+            padding: 0 10px; /* 添加两侧内边距 */
         }
 
         .chart-container {
             background: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 40, 100, 0.1);
-            padding: 25px;
-            margin-bottom: 30px;
+            border-radius: 10px; /* 减小圆角 */
+            box-shadow: 0 4px 20px rgba(0, 40, 100, 0.08); /* 减小阴影 */
+            padding: 15px; /* 减小内边距 */
+            margin-bottom: 15px; /* 减小底部外边距 */
             border: 1px solid #e1e8ed;
-            height: 780px;
+            height: 580px; /* 减小容器高度 */
         }
 
         .controls {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin: 25px 0;
+            gap: 8px; /* 减小按钮间距 */
+            margin: 10px 0 12px; /* 减小上下外边距 */
             flex-wrap: wrap;
         }
 
@@ -68,58 +68,68 @@
             background: #4a77d4;
             border: none;
             color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 8px 16px; /* 减小按钮内边距 */
+            border-radius: 24px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.82rem; /* 减小按钮字体 */
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(74, 119, 212, 0.2);
+            box-shadow: 0 2px 4px rgba(74, 119, 212, 0.2);
+            min-width: 110px; /* 确保按钮宽度一致 */
         }
 
             .btn:hover {
                 background: #3a67c4;
-                transform: translateY(-3px);
-                box-shadow: 0 6px 12px rgba(74, 119, 212, 0.3);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(74, 119, 212, 0.3);
             }
 
         .legend-info {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px; /* 减小上边距 */
             color: #6c7a89;
-            font-size: 0.95rem;
-            padding: 10px;
+            font-size: 0.8rem; /* 减小字体 */
+            padding: 7px; /* 减小内边距 */
             background: rgba(232, 240, 254, 0.5);
-            border-radius: 8px;
+            border-radius: 6px; /* 减小圆角 */
         }
 
         .footer {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 15px; /* 减小上边距 */
             color: #7a8ca5;
-            font-size: 0.9rem;
+            font-size: 1rem; /* 减小字体 */
+            padding-bottom: 5px;
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .chart-container {
-                height: 650px;
-                padding: 15px;
+                height: 520px; /* 减小移动端高度 */
+                padding: 10px; /* 减小内边距 */
             }
 
             h1 {
-                font-size: 2.2rem;
+                font-size: 1.5rem; /* 减小移动端标题 */
+                margin-bottom: 6px;
             }
 
             .subtitle {
-                font-size: 1rem;
+                font-size: 0.78rem; /* 减小移动端副标题 */
+                line-height: 1.3;
             }
 
             .controls {
-                gap: 10px;
+                gap: 6px; /* 减小移动端按钮间距 */
+                margin: 8px 0 10px;
             }
 
             .btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
+                padding: 6px 10px; /* 减小移动端按钮内边距 */
+                font-size: 0.78rem; /* 减小移动端按钮字体 */
+                min-width: 100px;
             }
         }
     </style>
@@ -127,22 +137,22 @@
 <body>
     <div class="container">
         <header>
-            <h1>
-                2010-2020年长三角区域各市夜间灯光亮度总值</h1>
-           
+            <h1>2010-2020年长三角区域各市夜间灯光亮度总值</h1>
+            
         </header>
 
         <div class="controls">
             <button class="btn" onclick="sortData('total')">按总量排序</button>
             <button class="btn" onclick="sortData('growth')">按增长率排序</button>
             <button class="btn" onclick="sortData('name')">按城市名称排序</button>
-            <button class="btn" onclick="toggleStack()">切换堆叠/分组模式</button>
+            <button class="btn" onclick="toggleStack()">切换堆叠/分组</button>
             <button class="btn" onclick="resetChart()">重置视图</button>
         </div>
 
         <div id="chart" class="chart-container"></div>
 
-      </div>
+        
+    </div>
 
     <script>
         // 城市灯光数据
@@ -205,33 +215,38 @@
                     borderColor: '#4a77d4',
                     textStyle: { color: '#333' },
                     formatter: function (params) {
-                        let result = `<div style="font-weight:bold;margin-bottom:8px;">${params[0].name}</div>`;
+                        let result = `<div style="font-weight:bold;margin-bottom:6px;font-size:0.9rem">${params[0].name}</div>`;
                         params.forEach(param => {
-                            result += `<div style="display:flex;align-items:center;margin-bottom:5px;">
-                                    <span style="display:inline-block;margin-right:8px;border-radius:4px;width:14px;height:14px;background-color:${param.color}"></span>
-                                    <span style="flex:1;">${param.seriesName}:</span>
-                                    <span style="font-weight:bold;">${param.value.toFixed(2)}</span>
-                                </div>`;
+                            result += `<div style="display:flex;align-items:center;margin-bottom:3px;font-size:0.85rem">
+                                            <span style="display:inline-block;margin-right:6px;border-radius:3px;width:12px;height:12px;background-color:${param.color}"></span>
+                                            <span style="flex:1;">${param.seriesName}:</span>
+                                            <span style="font-weight:bold;">${param.value.toFixed(2)}</span>
+                                        </div>`;
                         });
                         return result;
                     }
                 },
                 legend: {
                     data: years,
-                    textStyle: { color: '#5a6b82' },
-                    bottom: 0,
+                    textStyle: {
+                        color: '#5a6b82',
+                        fontSize: 13 // 减小图例字体
+                    },
+                    bottom: 2,
                     type: 'scroll',
-                    padding: [10, 50],
+                    padding: [8, 40], // 减小图例内边距
                     pageIconColor: '#4a77d4',
-                    pageTextStyle: { color: '#7a8ca5' },
-                    pageIconSize: 14,
-                    itemGap: 10
+                    pageTextStyle: { color: '#7a8ca5', fontSize: 10 },
+                    pageIconSize: 12,
+                    itemGap: 9, // 减小图例间距
+                    itemWidth: 15, // 减小图例宽度
+                    itemHeight: 12 // 减小图例高度
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
-                    bottom: '14%', // 给图例留出足够空间
-                    top: '10%',
+                    bottom: '13%', // 调整底部空间
+                    top: '8%', // 调整顶部空间
                     containLabel: true
                 },
                 xAxis: {
@@ -242,7 +257,8 @@
                         color: '#5a6b82',
                         interval: 0,
                         rotate: 30,
-                        margin: 15
+                        margin: 12, // 减小标签间距
+                        fontSize: 11 // 减小轴标签字体
                     },
                     axisTick: {
                         show: false
@@ -250,26 +266,36 @@
                 },
                 yAxis: {
                     type: 'value',
-                    name: '夜间灯光亮度总值（nW/cm2/sr-1）',
-                    nameTextStyle: { color: '#5a6b82' },
+                    name: '夜间灯光亮度总值（nW/cm²/sr）',
+                    nameTextStyle: {
+                        color: '#5a6b82',
+                        fontSize: 11 // 减小轴名称字体
+                    },
                     axisLine: { show: true, lineStyle: { color: '#d1dbe7' } },
-                    axisLabel: { color: '#5a6b82' },
+                    axisLabel: {
+                        color: '#5a6b82',
+                        fontSize: 11 // 减小轴标签字体
+                    },
                     splitLine: { lineStyle: { color: '#f0f4f9' } },
                     nameLocation: 'end',
-                    nameGap: 15
+                    nameGap: 10 // 减小名称与轴的距离
                 },
                 series: series,
                 dataZoom: [
                     {
                         type: 'inside',
                         start: 0,
-                        end: 40
+                        end: 100,
+                        zoomLock: false,
+                        minValueSpan: 10
                     },
                     {
                         type: 'slider',
                         show: true,
-                        bottom: 80, 
-                        height: 25,
+                        bottom: 40, // 调整缩放条位置
+                        height: 20, // 减小缩放条高度
+                        start: 0, // 初始位置0%
+                        end: 100,
                         backgroundColor: 'rgba(232, 240, 254, 0.5)',
                         dataBackground: {
                             lineStyle: { color: 'rgba(74, 119, 212, 0.3)' },
@@ -277,23 +303,28 @@
                         },
                         fillerColor: 'rgba(74, 119, 212, 0.2)',
                         borderColor: 'rgba(74, 119, 212, 0.4)',
-                        textStyle: { color: '#5a6b82' },
-                        handleSize: 20,
+                        textStyle: {
+                            color: '#5a6b82',
+                            fontSize: 10 // 减小缩放条字体
+                        },
+                        handleSize: 16, // 减小缩放把手尺寸
                         handleStyle: {
                             color: '#4a77d4'
-                        }
+                        },
+                        minValueSpan: 10
                     }
                 ],
                 color: [
-                    '#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de',
-                    '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc', '#1e90ff',
-                    '#ff6b6b'
+                    '#5470c6', '#91cc75', '#fac858',
+                    '#d14a61', '#73c0de', '#3ba272',
+                    '#fc8452', '#9a60b4', '#ea7ccc',
+                    '#1e90ff', '#ff8c00'
                 ]
             };
 
             chart.setOption(option);
 
-            
+            // 添加窗口大小变化时的自适应
             window.addEventListener('resize', function () {
                 chart.resize();
             });
