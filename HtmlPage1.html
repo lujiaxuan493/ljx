@@ -16,7 +16,7 @@
             color: #333;
             padding: 12px; 
             min-height: 100vh;
-            overflow-y: hidden;
+            
         }
 
         .container {
@@ -32,13 +32,13 @@
 
         h1 {
             font-size: 1.8rem; /* 减小标题大小 */
-            margin-bottom: 8px; /* 减小底部外边距 */
+            margin-bottom: 5px; /* 减小底部外边距 */
             color: #2c3e50;
             text-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .subtitle {
-            font-size: 0.85rem; /* 减小副标题大小 */
+            font-size: 0.7rem; /* 减小副标题大小 */
             color: #5a6b82;
             max-width: 800px;
             margin: 0 auto;
@@ -53,14 +53,14 @@
             padding: 15px; /* 减小内边距 */
             margin-bottom: 15px; /* 减小底部外边距 */
             border: 1px solid #e1e8ed;
-            height: 580px; /* 减小容器高度 */
+            height: 500px; /* 减小容器高度 */
         }
 
         .controls {
             display: flex;
             justify-content: center;
-            gap: 8px; /* 减小按钮间距 */
-            margin: 10px 0 12px; /* 减小上下外边距 */
+            gap: 6px; /* 减小按钮间距 */
+            margin: 8px 0 10px; /* 减小上下外边距 */
             flex-wrap: wrap;
         }
 
@@ -68,13 +68,13 @@
             background: #4a77d4;
             border: none;
             color: white;
-            padding: 8px 16px; /* 减小按钮内边距 */
+            padding: 6px 14px; /* 减小按钮内边距 */
             border-radius: 24px;
             cursor: pointer;
-            font-size: 0.82rem; /* 减小按钮字体 */
+            font-size: 0.75rem; /* 减小按钮字体 */
             transition: all 0.3s ease;
             box-shadow: 0 2px 4px rgba(74, 119, 212, 0.2);
-            min-width: 110px; /* 确保按钮宽度一致 */
+            min-width: 100px; /* 确保按钮宽度一致 */
         }
 
             .btn:hover {
@@ -85,7 +85,7 @@
 
         .legend-info {
             text-align: center;
-            margin-top: 15px; /* 减小上边距 */
+            margin-top: 13px; /* 减小上边距 */
             color: #6c7a89;
             font-size: 0.8rem; /* 减小字体 */
             padding: 7px; /* 减小内边距 */
@@ -95,7 +95,7 @@
 
         .footer {
             text-align: center;
-            margin-top: 15px; /* 减小上边距 */
+            margin-top: 13px; /* 减小上边距 */
             color: #7a8ca5;
             font-size: 1rem; /* 减小字体 */
             padding-bottom: 5px;
@@ -107,22 +107,22 @@
             }
 
             .chart-container {
-                height: 520px; /* 减小移动端高度 */
-                padding: 10px; /* 减小内边距 */
+                height: 500px; /* 减小移动端高度 */
+                padding: 8px; /* 减小内边距 */
             }
 
             h1 {
-                font-size: 1.5rem; /* 减小移动端标题 */
+                font-size: 1rem; /* 减小移动端标题 */
                 margin-bottom: 6px;
             }
 
             .subtitle {
-                font-size: 0.78rem; /* 减小移动端副标题 */
+                font-size: 0.72rem; /* 减小移动端副标题 */
                 line-height: 1.3;
             }
 
             .controls {
-                gap: 6px; /* 减小移动端按钮间距 */
+                gap: 5px; /* 减小移动端按钮间距 */
                 margin: 8px 0 10px;
             }
 
@@ -266,7 +266,7 @@
                 },
                 yAxis: {
                     type: 'value',
-                    name: '夜间灯光亮度总值（nW/cm²/sr）',
+                    name: '夜间灯光亮度总值（nW/cm²/sr⁻¹）',
                     nameTextStyle: {
                         color: '#5a6b82',
                         fontSize: 11 // 减小轴名称字体
@@ -315,10 +315,10 @@
                     }
                 ],
                 color: [
-                    '#5470c6', '#91cc75', '#fac858',
-                    '#d14a61', '#73c0de', '#3ba272',
-                    '#fc8452', '#9a60b4', '#ea7ccc',
-                    '#1e90ff', '#ff8c00'
+                    '#5470c6', '#91cc75', '#fac858', '#d14a61',
+                    '#73c0de', '#3ba272', '#1DDBC0',
+                    '#9a60b4', '#ea7ccc', '#1e90ff',
+                    '#ff8c00' 
                 ]
             };
 
