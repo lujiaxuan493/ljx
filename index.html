@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>长三角水资源生态数据分析</title>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI','Microsoft YaHei',sans-serif
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
-
         body {
-            background: linear-gradient(135deg,#e8f5e9 0%,#c8e6c9 100%);
-            color: #2e7d32;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px
+            padding: 20px;
         }
-
         .container {
             width: 100%;
             max-width: 1200px;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(76,175,80,0.15);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.15);
             overflow: hidden;
-            border: 1px solid rgba(165,214,167,0.8)
+            border: 1px solid rgba(165, 214, 167, 0.8);
         }
 
         header {
-            background: linear-gradient(90deg,#66bb6a 0%,#43a047 100%);
+            background: linear-gradient(90deg, #66bb6a 0%, #43a047 100%);
             color: white;
-            padding: 30px 40px;
+            padding: 25px 30px;
             text-align: center;
             position: relative;
-            overflow: hidden
+            overflow: hidden;
         }
-
             header::before {
                 content: "";
                 position: absolute;
@@ -50,138 +44,65 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: radial-gradient(circle at 20% 30%,rgba(255,255,255,0.2) 0%,transparent 40%);
-                pointer-events: none
+                background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 40%);
+                pointer-events: none;
             }
-
         h1 {
-            font-size: 2.6rem;
-            margin-bottom: 12px;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
             font-weight: 700;
             letter-spacing: 1px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: relative;
-            color: white
+            color: white;
         }
-
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.92;
             max-width: 700px;
             margin: 0 auto;
             line-height: 1.6;
             position: relative;
-            color: rgba(255,255,255,0.95)
+            color: rgba(255, 255, 255, 0.95);
         }
-
         .chart-container {
-            padding: 25px 30px;
-            height: 550px
+            padding: 20px;
+            height: 520px;
+            position: relative;
         }
-
         #water-chart {
             width: 100%;
-            height: 100%
+            height: 100%;
         }
-
-        .info-panel {
-            display: flex;
-            justify-content: space-around;
-            padding: 20px;
-            background: rgba(235,245,255,0.7);
-            border-top: 1px solid rgba(200,220,255,0.5);
-            border-bottom: 1px solid rgba(200,220,255,0.5)
-        }
-
-        .info-item {
-            text-align: center;
-            padding: 15px
-        }
-
-        .info-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 8px 0
-        }
-
-        .info-label {
-            font-size: 1rem;
-            color: #4a6fa8;
-            font-weight: 600
-        }
-
-        .info-positive {
-            color: #00c864
-        }
-
-        .info-negative {
-            color: #ff6b6b
-        }
-
-        .info-neutral {
-            color: #4a9fff
-        }
-
-        .legend-box {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-            padding: 15px
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #4CAF50;
             font-weight: 500;
-            padding: 8px 20px;
-            background: rgba(232,245,233,0.8);
-            border-radius: 50px
         }
-
-        .legend-color {
-            width: 24px;
-            height: 14px;
-            border-radius: 3px
-        }
-
-        .data-source {
-            padding: 20px;
-            text-align: center;
-            color: #7f8c8d;
-            font-size: 14px;
-            border-top: 1px solid rgba(200,220,255,0.5)
-        }
-
-        @media (max-width:768px) {
+        @media (max-width: 768px) {
             .chart-container {
-                height: 400px;
-                padding: 15px
+                height: 380px;
+                padding: 15px;
             }
-
             h1 {
-                font-size: 1.8rem
+                font-size: 1.6rem;
             }
-
             .subtitle {
-                font-size: 1rem
+                font-size: 0.95rem;
             }
-
-            .info-panel {
-                flex-direction: column;
-                gap: 10px
+        }
+        @media (max-width: 480px) {
+            header {
+                padding: 15px 20px;
             }
-
-            .legend-box {
-                gap: 15px
+            .chart-container {
+                height: 320px;
             }
-
-            .legend-item {
-                font-size: 14px;
-                padding: 6px 15px
+            h1 {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -195,135 +116,206 @@
 
         <div class="chart-container">
             <div id="water-chart"></div>
+            <div class="loading-indicator">数据加载中...</div>
         </div>
-
     </div>
-
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loadingIndicator = document.querySelector('.loading-indicator');
+            const chartDom = document.getElementById('water-chart');
 
-        function loadECharts() {
-            return new Promise((resolve, reject) => {
+            if (typeof echarts !== 'undefined') {
+                initChart()
+            } else {
                 const script = document.createElement('script');
                 script.src = 'https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js';
-                script.onload = resolve;
-                script.onerror = reject;
-                document.head.appendChild(script);
-            });
-        }
-
-
-        async function initChart() {
-            try {
-                await loadECharts();
-
-                const chartDom = document.getElementById('water-chart');
-                const myChart = echarts.init(chartDom);
-
-                const years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'];
-                const footprintData = [0.95, 0.91, 0.89, 0.89, 0.85, 0.79, 0.80, 0.76, 0.73, 0.77, 0.67];
-                const capacityData = [1.85, 1.26, 1.86, 1.26, 1.58, 2.05, 2.41, 1.44, 1.41, 1.55, 1.96];
-                const surplusData = [0.91, 0.34, 0.98, 0.37, 0.73, 1.26, 1.62, 0.67, 0.67, 0.78, 1.29];
-
-
-                const option = {
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: { type: 'line', lineStyle: { color: '#4a9fff', width: 2, type: 'dashed' } },
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                        borderColor: '#b0c4de',
-                        borderWidth: 1,
-                        padding: [15, 20],
-                        textStyle: { color: '#2c3e50', fontSize: 14 },
-                        formatter: function (params) {
-                            const year = params[0].name;
-                            const footprint = params[0].value;
-                            const capacity = params[1].value;
-                            const surplus = params[2].value;
-                            return `<div style="font-size:18px;font-weight:bold;margin-bottom:10px;border-bottom:1px solid #e0eeff;padding-bottom:5px;color:#2c3e50">${year}年水资源生态数据</div>
-                                            <div style="margin-bottom:8px;color:#2c3e50">人均生态足迹: <span style="color:#ff6b6b;font-weight:bold">${footprint} hm²/人</span></div>
-                                            <div style="margin-bottom:8px;color:#2c3e50">人均生态承载力: <span style="color:#4a9fff;font-weight:bold">${capacity} hm²/人</span></div>
-                                            <div style="margin-top:10px;color:#2c3e50">生态盈余: <span style="color:#00c864;font-weight:bold">${surplus} hm²/人</span></div>`;
-                        }
-                    },
-                    legend: {
-                        data: ['人均生态足迹', '人均生态承载力', '生态盈余'],
-                        bottom: 10,
-                        textStyle: { color: '#4a6fa8', fontSize: 14 }
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '15%',
-                        top: '12%',
-                        containLabel: true
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: years,
-                        axisLine: { lineStyle: { color: '#a0c0ff' } },
-                        axisLabel: { color: '#7f8c8d', fontSize: 12 },
-                        axisTick: { alignWithLabel: true, lineStyle: { color: '#d0e0ff' } }
-                    },
-                    yAxis: {
-                        type: 'value',
-                        name: 'hm²/人',
-                        nameTextStyle: { color: '#7f8c8d', fontSize: 14, padding: [0, 0, 0, 10] },
-                        axisLine: { lineStyle: { color: '#a0c0ff' } },
-                        axisLabel: { color: '#7f8c8d', fontSize: 12, formatter: '{value}' },
-                        splitLine: { lineStyle: { color: 'rgba(200, 220, 255, 0.6)' } }
-                    },
-                    series: [
-                        {
-                            name: '人均生态足迹',
-                            type: 'line',
-                            data: footprintData,
-                            symbol: 'circle',
-                            symbolSize: 10,
-                            lineStyle: { width: 4, color: '#ff6b6b' },
-                            itemStyle: { color: '#ff6b6b', borderWidth: 2, borderColor: '#fff' },
-                            emphasis: { itemStyle: { borderWidth: 3, shadowColor: 'rgba(255, 107, 107, 0.3)', shadowBlur: 10 } },
-                            z: 10
-                        },
-                        {
-                            name: '人均生态承载力',
-                            type: 'line',
-                            data: capacityData,
-                            symbol: 'circle',
-                            symbolSize: 10,
-                            lineStyle: { width: 4, color: '#4a9fff' },
-                            itemStyle: { color: '#4a9fff', borderWidth: 2, borderColor: '#fff' },
-                            emphasis: { itemStyle: { borderWidth: 3, shadowColor: 'rgba(74, 159, 255, 0.3)', shadowBlur: 10 } },
-                            z: 10
-                        },
-                        {
-                            name: '生态盈余',
-                            type: 'bar',
-                            data: surplusData,
-                            barWidth: '35%',
-                            itemStyle: { color: '#00c864', borderRadius: [5, 5, 0, 0] },
-                            emphasis: { itemStyle: { shadowColor: 'rgba(0, 200, 100, 0.4)', shadowBlur: 8 } }
-                        }
-                    ]
+                script.onload = initChart;
+                script.onerror = function () {
+                    loadingIndicator.innerHTML = '<div style="color:#ff6b6b">图表库加载失败，请刷新页面重试</div>';
                 };
-
-
-                myChart.setOption(option);
-
-
-                window.addEventListener('resize', function () {
-                    myChart.resize();
-                });
-
-
-                chartDom.style.visibility = 'visible';
-
-            } catch (error) {
-                console.error('加载图表时出错:', error);
-                document.getElementById('water-chart').innerHTML = '<div style="text-align:center;padding:40px;color:#ff6b6b">图表加载失败，请刷新页面重试</div>';
+                document.head.appendChild(script);
             }
-        }
 
-        document.addEventListener('DOMContentLoaded', initChart);
+            function initChart() {
+                try {
+                    const myChart = echarts.init(chartDom);
+
+                    const years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'];
+                    const footprintData = [0.95, 0.91, 0.89, 0.89, 0.85, 0.79, 0.80, 0.76, 0.73, 0.77, 0.67];
+                    const capacityData = [1.85, 1.26, 1.86, 1.26, 1.58, 2.05, 2.41, 1.44, 1.41, 1.55, 1.96];
+                    const surplusData = [0.91, 0.34, 0.98, 0.37, 0.73, 1.26, 1.62, 0.67, 0.67, 0.78, 1.29];
+                    const option = {
+                        animation: true,
+                        animationDuration: 1000,
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'line',
+                                lineStyle: {
+                                    color: '#4a9fff',
+                                    width: 2,
+                                    type: 'dashed'
+                                }
+                            },
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            borderColor: '#b0c4de',
+                            borderWidth: 1,
+                            padding: [10, 15],
+                            textStyle: {
+                                color: '#2c3e50',
+                                fontSize: 13
+                            },
+                            formatter: function (params) {
+                                const year = params[0].name;
+                                const footprint = params[0].value;
+                                const capacity = params[1].value;
+                                const surplus = params[2].value;
+                                return `<div style="font-size:16px;font-weight:bold;margin-bottom:8px;border-bottom:1px solid #e0eeff;padding-bottom:5px;color:#2c3e50">${year}年水资源生态数据</div>
+                                            <div style="margin-bottom:6px;color:#2c3e50">人均生态足迹: <span style="color:#ff6b6b;font-weight:bold">${footprint} hm²/人</span></div>
+                                            <div style="margin-bottom:6px;color:#2c3e50">人均生态承载力: <span style="color:#4a9fff;font-weight:bold">${capacity} hm²/人</span></div>
+                                            <div style="margin-top:8px;color:#2c3e50">生态盈余: <span style="color:#00c864;font-weight:bold">${surplus} hm²/人</span></div>`;
+                            }
+                        },
+                        legend: {
+                            data: ['人均生态足迹', '人均生态承载力', '生态盈余'],
+                            bottom: 10,
+                            textStyle: {
+                                color: '#4a6fa8',
+                                fontSize: 13
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '15%',
+                            top: '12%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: years,
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#a0c0ff'
+                                }
+                            },
+                            axisLabel: {
+                                color: '#7f8c8d',
+                                fontSize: 11
+                            },
+                            axisTick: {
+                                alignWithLabel: true,
+                                lineStyle: {
+                                    color: '#d0e0ff'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: 'hm²/人',
+                            nameTextStyle: {
+                                color: '#7f8c8d',
+                                fontSize: 12,
+                                padding: [0, 0, 0, 5]
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: '#a0c0ff'
+                                }
+                            },
+                            axisLabel: {
+                                color: '#7f8c8d',
+                                fontSize: 11,
+                                formatter: '{value}'
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: 'rgba(200, 220, 255, 0.6)'
+                                }
+                            }
+                        },
+                        series: [
+                            {
+                                name: '人均生态足迹',
+                                type: 'line',
+                                data: footprintData,
+                                symbol: 'circle',
+                                symbolSize: 8,
+                                lineStyle: {
+                                    width: 3,
+                                    color: '#ff6b6b'
+                                },
+                                itemStyle: {
+                                    color: '#ff6b6b',
+                                    borderWidth: 1,
+                                    borderColor: '#fff'
+                                },
+                                emphasis: {
+                                    itemStyle: {
+                                        borderWidth: 2,
+                                        shadowColor: 'rgba(255, 107, 107, 0.3)',
+                                        shadowBlur: 8
+                                    }
+                                },
+                                z: 10
+                            },
+                            {
+                                name: '人均生态承载力',
+                                type: 'line',
+                                data: capacityData,
+                                symbol: 'circle',
+                                symbolSize: 8,
+                                lineStyle: {
+                                    width: 3,
+                                    color: '#4a9fff'
+                                },
+                                itemStyle: {
+                                    color: '#4a9fff',
+                                    borderWidth: 1,
+                                    borderColor: '#fff'
+                                },
+                                emphasis: {
+                                    itemStyle: {
+                                        borderWidth: 2,
+                                        shadowColor: 'rgba(74, 159, 255, 0.3)',
+                                        shadowBlur: 8
+                                    }
+                                },
+                                z: 10
+                            },
+                            {
+                                name: '生态盈余',
+                                type: 'bar',
+                                data: surplusData,
+                                barWidth: '30%',
+                                itemStyle: {
+                                    color: '#00c864',
+                                    borderRadius: [4, 4, 0, 0]
+                                },
+                                emphasis: {
+                                    itemStyle: {
+                                        shadowColor: 'rgba(0, 200, 100, 0.4)',
+                                        shadowBlur: 6
+                                    }
+                                }
+                            }
+                        ]
+                    };
+
+                    myChart.setOption(option);
+
+                    loadingIndicator.style.display = 'none';
+
+                    window.addEventListener('resize', function () {
+                        myChart.resize();
+                    });
+
+                } catch (error) {
+                    console.error('图表初始化失败:', error);
+                    loadingIndicator.innerHTML = '<div style="color:#ff6b6b">图表加载失败，请刷新页面重试</div>';
+                }
+            }
+        });
     </script>
 </body>
 </html>
