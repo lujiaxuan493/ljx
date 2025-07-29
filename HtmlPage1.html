@@ -4,14 +4,138 @@
     <meta charset="UTF-8">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI','Microsoft YaHei',sans-serif}body{background:linear-gradient(135deg,#f5f7fa,#e4edf9);color:#333;padding:12px;min-height:100vh}.container{max-width:1400px;margin:0 auto}header{text-align:center;padding:15px 0 10px;margin-bottom:10px}h1{font-size:1.8rem;margin-bottom:5px;color:#2c3e50;text-shadow:0 1px 3px rgba(0,0,0,.1)}.subtitle{font-size:.7rem;color:#5a6b82;max-width:800px;margin:0 auto;line-height:1.4;padding:0 10px}.chart-container{background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,40,100,.08);padding:15px;margin-bottom:15px;border:1px solid #e1e8ed;height:500px}.controls{display:flex;justify-content:center;gap:6px;margin:8px 0 10px;flex-wrap:wrap}.btn{background:#4a77d4;border:none;color:#fff;padding:6px 14px;border-radius:24px;cursor:pointer;font-size:.75rem;transition:all .3s;box-shadow:0 2px 4px rgba(74,119,212,.2);min-width:100px}.btn:hover{background:#3a67c4;transform:translateY(-1px);box-shadow:0 4px 8px rgba(74,119,212,.3)}.footer{text-align:center;margin-top:13px;color:#7a8ca5;font-size:1rem;padding-bottom:5px}@media (max-width:768px){body{padding:10px}.chart-container{height:500px;padding:8px}h1{font-size:1rem;margin-bottom:6px}.subtitle{font-size:.72rem;line-height:1.3}.controls{gap:5px;margin:8px 0 10px}.btn{padding:6px 10px;font-size:.78rem;min-width:100px}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4edf9);
+            color: #333;
+            padding: 5px;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            padding: 5px 0;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 3px;
+            color: #2c3e50;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 0.7rem;
+            color: #5a6b82;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+
+        .chart-container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 40, 100, 0.08);
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #e1e8ed;
+            flex: 1;
+            min-height: 0; 
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin: 5px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #4a77d4;
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(74, 119, 212, 0.2);
+            min-width: 100px;
+        }
+
+            .btn:hover {
+                background: #3a67c4;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(74, 119, 212, 0.3);
+            }
+
+        .legend-info {
+            text-align: center;
+            margin-top: 8px;
+            color: #6c7a89;
+            font-size: 0.8rem;
+            padding: 5px;
+            background: rgba(232, 240, 254, 0.5);
+            border-radius: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 5px;
+            color: #7a8ca5;
+            font-size: 0.8rem;
+            padding-bottom: 3px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            .chart-container {
+                padding: 8px;
+            }
+
+            h1 {
+                font-size: 1.2rem;
+                margin-bottom: 3px;
+            }
+
+            .controls {
+                gap: 4px;
+                margin: 4px 0;
+            }
+
+            .btn {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+                min-width: 85px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>2010-2020年长三角区域各市夜间灯光亮度总值</h1>
-        </header>
+            <h1>2010-2020年长三角区域各市夜间灯光亮度总值</h1>  </header>
 
         <div class="controls">
             <button class="btn" onclick="sortData('total')">按总量排序</button>
@@ -22,163 +146,204 @@
         </div>
 
         <div id="chart" class="chart-container"></div>
+
     </div>
 
     <script>
-        const cityData = [
-            {n:'温州市',v:[2593.565899,3936.949703,3861.628462,7412.508774,7483.589033,7824.608582,7923.767686,10196.09648,10384.83618,11007.21519,12852.51971]},
-            {n:'滁州市',v:[766.2310037,1772.678047,1201.899269,3081.182365,2885.672608,3043.011971,3497.27062,4548.274565,5168.862091,5935.9781,6375.468104]},
-            {n:'合肥市',v:[3743.167265,5663.072839,3496.48557,9658.497341,9917.612586,9842.685329,10847.1009,13024.12436,13725.36824,15281.54075,15966.90926]},
-            {n:'芜湖市',v:[1409.129235,2180.307773,1629.716928,3476.462211,3302.532527,3479.251907,3795.785298,4409.820931,4609.510081,4704.899075,4725.960086]},
-            {n:'铜陵市',v:[339.4073663,548.5596313,360.9313726,898.7843824,845.668663,813.8437232,940.3140843,1106.280267,1102.934019,1197.068021,1310.840521]},
-            {n:'安庆市',v:[366.2653145,602.0728314,565.4814152,1302.860438,1251.159346,1274.648455,1456.896688,1820.31558,2181.982037,2674.024547,2969.523551]},
-            {n:'马鞍山',v:[1021.40883,1417.967002,1055.001445,2896.701357,2628.069371,2696.637271,2809.576981,3271.992343,3295.443054,3326.302052,3486.516059]},
-            {n:'池州市',v:[276.2139707,358.9029946,264.9904023,585.2229136,522.739956,509.8683366,560.7839672,691.6970581,742.8920122,854.1820142,882.324516]},
-            {n:'宣城市',v:[379.2077099,630.6527912,621.8980088,1631.297172,1420.544896,1401.962855,1516.590952,1896.168372,1998.587037,2237.091539,2259.734539]},
-            {n:'苏州市',v:[17429.86324,24964.59389,16659.0393,30805.4804,29776.02289,31118.91732,31609.49777,34446.49017,35587.83861,36417.27713,37983.46116]},
-            {n:'南通市',v:[3850.89534,6435.644614,5000.300236,8433.464854,8597.280449,9169.720022,9411.479584,11134.27178,12010.32321,12971.39723,14051.25975]},
-            {n:'常州市',v:[5203.663899,7754.072385,5608.79358,8874.69165,7967.243445,7853.475167,8658.388351,9394.346281,10243.25817,10790.96219,12239.65921]},
-            {n:'南京市',v:[6566.50983,9958.779152,6557.841076,13127.11561,12936.58332,12685.42728,13109.59339,14865.32919,15913.07227,18027.1538,19413.51381]},
-            {n:'泰州市',v:[2466.570667,3534.462588,2531.28511,4845.091653,4698.847017,4754.333936,5260.997457,6935.217994,7614.062128,8136.437137,8926.837647]},
-            {n:'无锡市',v:[9293.841809,12832.43223,7607.679684,13931.08436,12931.58374,12406.54981,12988.65867,14219.51211,14997.30027,15418.39426,16042.15329]},
-            {n:'扬州市',v:[2723.275948,3878.234753,2598.108826,4977.681453,4862.154869,4967.297736,5496.533665,6509.439753,6919.566118,7594.439623,7935.749125]},
-            {n:'盐城市',v:[2196.757644,3637.284211,2706.03672,4796.523315,4686.670743,5193.055837,5745.638807,7599.047188,8622.981142,9557.913649,10553.73419]},
-            {n:'镇江市',v:[2455.702374,3442.202115,2417.202387,5089.962366,5022.479066,4989.235956,5458.271156,6719.549628,7200.515118,7373.49012,7502.866135]},
-            {n:'宁波市',v:[7804.544043,10231.6496,10458.84599,16702.30652,15956.28616,16214.98465,16581.28774,19049.41776,19185.47834,20329.72734,21749.52838]},
-            {n:'嘉兴市',v:[3580.262957,4823.332252,3140.329924,6397.707172,6410.431952,7016.210553,7376.789196,8946.136001,9897.536183,11060.87419,12668.09472]},
-            {n:'湖州市',v:[1746.589353,2499.880848,1872.917721,3801.092672,3419.963381,3841.643762,3945.854078,5448.895981,6208.160105,6796.590123,7445.152127]},
-            {n:'台州市',v:[2162.893613,3617.340026,3300.465404,5941.895125,6356.778482,6673.284333,6737.956333,8170.485083,8386.261147,8811.842152,9372.892654]},
-            {n:'杭州市',v:[6837.622819,10344.58043,9226.722151,14164.48065,13303.83336,13375.69207,14856.69084,17996.047,18686.92331,19842.11835,20936.68288]},
-            {n:'金华市',v:[2222.692642,4027.978583,4615.427815,7010.741718,7526.256219,7783.03638,8989.288022,10698.68243,11756.54621,12602.48521,13417.77823]},
-            {n:'绍兴市',v:[2684.990689,3417.891231,3515.376767,5995.980447,5880.019902,5992.869967,6242.872803,7730.3341,7899.762139,8284.420145,9245.157162]},
-            {n:'舟山市',v:[470.4165887,705.2374855,652.1778262,1148.730145,1246.251474,1319.153054,1362.771083,1659.923332,1767.468029,2020.779033,2308.646041]},
-            {n:'上海市',v:[23322.04331,31552.67302,21580.16688,40633.93108,38678.76638,39938.10162,39675.96637,43668.19404,43980.69272,44657.16526,45587.60629]}
+              const cityData = [
+            { name: '温州市', values: [2593.565899, 3936.949703, 3861.628462, 7412.508774, 7483.589033, 7824.608582, 7923.767686, 10196.09648, 10384.83618, 11007.21519, 12852.51971] },
+            { name: '滁州市', values: [766.2310037, 1772.678047, 1201.899269, 3081.182365, 2885.672608, 3043.011971, 3497.27062, 4548.274565, 5168.862091, 5935.9781, 6375.468104] },
+            { name: '合肥市', values: [3743.167265, 5663.072839, 3496.48557, 9658.497341, 9917.612586, 9842.685329, 10847.1009, 13024.12436, 13725.36824, 15281.54075, 15966.90926] },
+            { name: '芜湖市', values: [1409.129235, 2180.307773, 1629.716928, 3476.462211, 3302.532527, 3479.251907, 3795.785298, 4409.820931, 4609.510081, 4704.899075, 4725.960086] },
+            { name: '铜陵市', values: [339.4073663, 548.5596313, 360.9313726, 898.7843824, 845.668663, 813.8437232, 940.3140843, 1106.280267, 1102.934019, 1197.068021, 1310.840521] },
+            { name: '安庆市', values: [366.2653145, 602.0728314, 565.4814152, 1302.860438, 1251.159346, 1274.648455, 1456.896688, 1820.31558, 2181.982037, 2674.024547, 2969.523551] },
+            { name: '马鞍山', values: [1021.40883, 1417.967002, 1055.001445, 2896.701357, 2628.069371, 2696.637271, 2809.576981, 3271.992343, 3295.443054, 3326.302052, 3486.516059] },
+            { name: '池州市', values: [276.2139707, 358.9029946, 264.9904023, 585.2229136, 522.739956, 509.8683366, 560.7839672, 691.6970581, 742.8920122, 854.1820142, 882.324516] },
+            { name: '宣城市', values: [379.2077099, 630.6527912, 621.8980088, 1631.297172, 1420.544896, 1401.962855, 1516.590952, 1896.168372, 1998.587037, 2237.091539, 2259.734539] },
+            { name: '苏州市', values: [17429.86324, 24964.59389, 16659.0393, 30805.4804, 29776.02289, 31118.91732, 31609.49777, 34446.49017, 35587.83861, 36417.27713, 37983.46116] },
+            { name: '南通市', values: [3850.89534, 6435.644614, 5000.300236, 8433.464854, 8597.280449, 9169.720022, 9411.479584, 11134.27178, 12010.32321, 12971.39723, 14051.25975] },
+            { name: '常州市', values: [5203.663899, 7754.072385, 5608.79358, 8874.69165, 7967.243445, 7853.475167, 8658.388351, 9394.346281, 10243.25817, 10790.96219, 12239.65921] },
+            { name: '南京市', values: [6566.50983, 9958.779152, 6557.841076, 13127.11561, 12936.58332, 12685.42728, 13109.59339, 14865.32919, 15913.07227, 18027.1538, 19413.51381] },
+            { name: '泰州市', values: [2466.570667, 3534.462588, 2531.28511, 4845.091653, 4698.847017, 4754.333936, 5260.997457, 6935.217994, 7614.062128, 8136.437137, 8926.837647] },
+            { name: '无锡市', values: [9293.841809, 12832.43223, 7607.679684, 13931.08436, 12931.58374, 12406.54981, 12988.65867, 14219.51211, 14997.30027, 15418.39426, 16042.15329] },
+            { name: '扬州市', values: [2723.275948, 3878.234753, 2598.108826, 4977.681453, 4862.154869, 4967.297736, 5496.533665, 6509.439753, 6919.566118, 7594.439623, 7935.749125] },
+            { name: '盐城市', values: [2196.757644, 3637.284211, 2706.03672, 4796.523315, 4686.670743, 5193.055837, 5745.638807, 7599.047188, 8622.981142, 9557.913649, 10553.73419] },
+            { name: '镇江市', values: [2455.702374, 3442.202115, 2417.202387, 5089.962366, 5022.479066, 4989.235956, 5458.271156, 6719.549628, 7200.515118, 7373.49012, 7502.866135] },
+            { name: '宁波市', values: [7804.544043, 10231.6496, 10458.84599, 16702.30652, 15956.28616, 16214.98465, 16581.28774, 19049.41776, 19185.47834, 20329.72734, 21749.52838] },
+            { name: '嘉兴市', values: [3580.262957, 4823.332252, 3140.329924, 6397.707172, 6410.431952, 7016.210553, 7376.789196, 8946.136001, 9897.536183, 11060.87419, 12668.09472] },
+            { name: '湖州市', values: [1746.589353, 2499.880848, 1872.917721, 3801.092672, 3419.963381, 3841.643762, 3945.854078, 5448.895981, 6208.160105, 6796.590123, 7445.152127] },
+            { name: '台州市', values: [2162.893613, 3617.340026, 3300.465404, 5941.895125, 6356.778482, 6673.284333, 6737.956333, 8170.485083, 8386.261147, 8811.842152, 9372.892654] },
+            { name: '杭州市', values: [6837.622819, 10344.58043, 9226.722151, 14164.48065, 13303.83336, 13375.69207, 14856.69084, 17996.047, 18686.92331, 19842.11835, 20936.68288] },
+            { name: '金华市', values: [2222.692642, 4027.978583, 4615.427815, 7010.741718, 7526.256219, 7783.03638, 8989.288022, 10698.68243, 11756.54621, 12602.48521, 13417.77823] },
+            { name: '绍兴市', values: [2684.990689, 3417.891231, 3515.376767, 5995.980447, 5880.019902, 5992.869967, 6242.872803, 7730.3341, 7899.762139, 8284.420145, 9245.157162] },
+            { name: '舟山市', values: [470.4165887, 705.2374855, 652.1778262, 1148.730145, 1246.251474, 1319.153054, 1362.771083, 1659.923332, 1767.468029, 2020.779033, 2308.646041] },
+            { name: '上海市', values: [23322.04331, 31552.67302, 21580.16688, 40633.93108, 38678.76638, 39938.10162, 39675.96637, 43668.19404, 43980.69272, 44657.16526, 45587.60629] }
         ];
-        const years = ['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020'];
+
+        const years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'];
         let isStacked = true;
         let chart = null;
-        const colors = ['#5470c6','#91cc75','#fac858','#d14a61','#73c0de','#3ba272','#1DDBC0','#9a60b4','#ea7ccc','#1e90ff','#ff8c00'];
 
         function initChart() {
-            if (chart) chart.dispose();
-            chart = echarts.init(document.getElementById('chart'));
-            
-            const series = years.map((year, idx) => ({
-                name: year,
-                type: 'bar',
-                stack: isStacked ? 'total' : null,
-                emphasis: { focus: 'series' },
-                data: cityData.map(city => city.v[idx])
-            }));
+            const chartDom = document.getElementById('chart');
+            chart = echarts.init(chartDom);
 
-            chart.setOption({
+            const series = years.map((year, index) => {
+                return {
+                    name: year,
+                    type: 'bar',
+                    stack: isStacked ? 'total' : null,
+                    emphasis: { focus: 'series' },
+                    data: cityData.map(city => city.values[index])
+                };
+            });
+
+            const option = {
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { type: 'shadow' },
-                    backgroundColor: 'rgba(255,255,255,0.95)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
                     borderColor: '#4a77d4',
                     textStyle: { color: '#333' },
-                    formatter: function(params) {
-                        let html = `<div style="font-weight:bold;margin-bottom:6px;font-size:.9rem">${params[0].name}</div>`;
-                        params.forEach(p => html += `<div style="display:flex;align-items:center;margin-bottom:3px;font-size:.85rem">
-                            <span style="display:inline-block;margin-right:6px;border-radius:3px;width:12px;height:12px;background-color:${p.color}"></span>
-                            <span style="flex:1">${p.seriesName}:</span>
-                            <span style="font-weight:bold">${p.value.toFixed(2)}</span>
-                        </div>`);
-                        return html;
+                    formatter: function (params) {
+                        let result = `<div style="font-weight:bold;margin-bottom:6px;font-size:0.9rem">${params[0].name}</div>`;
+                        params.forEach(param => {
+                            result += `<div style="display:flex;align-items:center;margin-bottom:3px;font-size:0.85rem">
+                                                    <span style="display:inline-block;margin-right:6px;border-radius:3px;width:12px;height:12px;background-color:${param.color}"></span>
+                                                    <span style="flex:1;">${param.seriesName}:</span>
+                                                    <span style="font-weight:bold;">${param.value.toFixed(2)}</span>
+                                                </div>`;
+                        });
+                        return result;
                     }
                 },
                 legend: {
                     data: years,
-                    textStyle: { color: '#5a6b82', fontSize: 13 },
-                    bottom: 2,
+                    textStyle: {
+                        color: '#5a6b82',
+                        fontSize: 11
+                    },
+                    bottom: 0,
                     type: 'scroll',
-                    padding: [8,40],
+                    padding: [5, 30],
                     pageIconColor: '#4a77d4',
-                    pageTextStyle: { color: '#7a8ca5', fontSize: 10 },
-                    pageIconSize: 12,
-                    itemGap: 9,
-                    itemWidth: 15,
-                    itemHeight: 12
+                    pageTextStyle: { color: '#7a8ca5', fontSize: 9 },
+                    pageIconSize: 10,
+                    itemGap: 7,
+                    itemWidth: 12,
+                    itemHeight: 10
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
-                    bottom: '13%',
-                    top: '8%',
+                    bottom: '12%',
+                    top: '5%',
                     containLabel: true
                 },
                 xAxis: {
                     type: 'category',
-                    data: cityData.map(city => city.n),
+                    data: cityData.map(city => city.name),
                     axisLine: { lineStyle: { color: '#d1dbe7' } },
                     axisLabel: {
                         color: '#5a6b82',
                         interval: 0,
                         rotate: 30,
-                        margin: 12,
-                        fontSize: 11
+                        margin: 10,
+                        fontSize: 10
                     },
-                    axisTick: { show: false }
+                    axisTick: {
+                        show: false
+                    }
                 },
                 yAxis: {
                     type: 'value',
                     name: '夜间灯光亮度总值（nW/cm²/sr⁻¹）',
-                    nameTextStyle: { color: '#5a6b82', fontSize: 11 },
+                    nameTextStyle: {
+                        color: '#5a6b82',
+                        fontSize: 10
+                    },
                     axisLine: { show: true, lineStyle: { color: '#d1dbe7' } },
-                    axisLabel: { color: '#5a6b82', fontSize: 11 },
+                    axisLabel: {
+                        color: '#5a6b82',
+                        fontSize: 10
+                    },
                     splitLine: { lineStyle: { color: '#f0f4f9' } },
                     nameLocation: 'end',
-                    nameGap: 10
+                    nameGap: 8
                 },
                 series: series,
-                dataZoom: [{
-                    type: 'inside',
-                    start: 0,
-                    end: 100,
-                    zoomLock: false,
-                    minValueSpan: 10
-                },{
-                    type: 'slider',
-                    show: true,
-                    bottom: 40,
-                    height: 20,
-                    start: 0,
-                    end: 100,
-                    backgroundColor: 'rgba(232,240,254,0.5)',
-                    dataBackground: {
-                        lineStyle: { color: 'rgba(74,119,212,0.3)' },
-                        areaStyle: { color: 'rgba(74,119,212,0.1)' }
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        start: 0,
+                        end: 100,
+                        zoomLock: false,
+                        minValueSpan: 10
                     },
-                    fillerColor: 'rgba(74,119,212,0.2)',
-                    borderColor: 'rgba(74,119,212,0.4)',
-                    textStyle: { color: '#5a6b82', fontSize: 10 },
-                    handleSize: 15,
-                    handleStyle: { color: '#4a77d4' },
-                    minValueSpan: 10
-                }],
-                color: colors
-            });
+                    {
+                        type: 'slider',
+                        show: true,
+                        bottom: 35,
+                        height: 16,
+                        start: 0,
+                        end: 100,
+                        backgroundColor: 'rgba(232, 240, 254, 0.5)',
+                        dataBackground: {
+                            lineStyle: { color: 'rgba(74, 119, 212, 0.3)' },
+                            areaStyle: { color: 'rgba(74, 119, 212, 0.1)' }
+                        },
+                        fillerColor: 'rgba(74, 119, 212, 0.2)',
+                        borderColor: 'rgba(74, 119, 212, 0.4)',
+                        textStyle: {
+                            color: '#5a6b82',
+                            fontSize: 9
+                        },
+                        handleSize: 12,
+                        handleStyle: {
+                            color: '#4a77d4'
+                        },
+                        minValueSpan: 10
+                    }
+                ],
+                color: [
+                    '#5470c6', '#91cc75', '#fac858', '#d14a61',
+                    '#73c0de', '#3ba272', '#1DDBC0',
+                    '#9a60b4', '#ea7ccc', '#1e90ff',
+                    '#ff8c00'
+                ]
+            };
 
-            window.addEventListener('resize', () => chart.resize());
+            chart.setOption(option);
+
+            window.addEventListener('resize', function () {
+                chart.resize();
+            });
         }
 
         function sortData(type) {
             if (type === 'total') {
-                cityData.sort((a, b) => 
-                    b.v.reduce((s, v) => s + v, 0) - a.v.reduce((s, v) => s + v, 0));
+                cityData.sort((a, b) => {
+                    const totalA = a.values.reduce((sum, val) => sum + val, 0);
+                    const totalB = b.values.reduce((sum, val) => sum + val, 0);
+                    return totalB - totalA;
+                });
             } else if (type === 'growth') {
-                cityData.sort((a, b) => 
-                    ((b.v[10] - b.v[0]) / b.v[0]) - ((a.v[10] - a.v[0]) / a.v[0]));
+                cityData.sort((a, b) => {
+                    const growthA = (a.values[10] - a.values[0]) / a.values[0];
+                    const growthB = (b.values[10] - b.values[0]) / b.values[0];
+                    return growthB - growthA;
+                });
             } else if (type === 'name') {
-                cityData.sort((a, b) => a.n.localeCompare(b.n, 'zh-CN'));
+                cityData.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
             }
-            
+
             chart.setOption({
-                xAxis: { data: cityData.map(city => city.n) },
-                series: years.map((_, idx) => ({
-                    data: cityData.map(city => city.v[idx])
-                }))
+                xAxis: { data: cityData.map(city => city.name) },
+                series: years.map((year, index) => {
+                    return {
+                        data: cityData.map(city => city.values[index])
+                    };
+                })
             });
         }
 
@@ -188,11 +353,13 @@
         }
 
         function resetChart() {
-            cityData.sort((a, b) => a.n.localeCompare(b.n, 'zh-CN'));
+            cityData.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
             initChart();
         }
 
-        window.onload = initChart;
+        window.onload = function () {
+            initChart();
+        };
     </script>
 </body>
 </html>
