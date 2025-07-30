@@ -33,11 +33,14 @@
             padding: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             height: 550px;
+            display: flex;
+            flex-direction: column;
         }
 
         #chart {
             width: 100%;
-            height: 100%;
+            flex: 1; 
+            min-height: 0; 
         }
 
         .loading {
@@ -49,10 +52,29 @@
             font-size: 1.2rem;
         }
 
+        .chart-caption {
+            text-align: center;
+            padding: 10px 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 5px;
+        }
+
+            .chart-caption strong {
+                color: #a0d2eb;
+                font-weight: 600;
+            }
+
         @media (max-width: 768px) {
             .chart-container {
                 height: 400px;
                 padding: 10px;
+            }
+
+            .chart-caption {
+                font-size: 12px;
+                padding: 8px 0;
             }
         }
     </style>
@@ -61,19 +83,21 @@
     <div class="container">
         <div class="chart-container">
             <div id="chart"></div>
+            <div class="chart-caption">
+                图19 2010-2020年长三角城市群人口、经济、空间城市化指标
+            </div>
             <div class="loading">数据加载中...</div>
         </div>
     </div>
 
     <script>
-       document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const chartDom = document.getElementById('chart');
             const loadingElement = document.querySelector('.loading');
 
             if (typeof echarts !== 'undefined') {
                 initChart();
             } else {
-        
                 const script = document.createElement('script');
                 script.src = 'https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js';
                 script.onload = initChart;
@@ -117,18 +141,18 @@
                                 params.forEach(param => {
                                     const value = param.value.toFixed(3);
                                     result += `
-                                            <div style="display:flex;align-items:center;margin:5px 0">
-                                                <span style="display:inline-block;width:12px;height:12px;background:${param.color};border-radius:50%;margin-right:8px"></span>
-                                                ${param.seriesName}: <span style="font-weight:bold;margin-left:5px">${value}</span>
-                                            </div>
-                                        `;
+                                                <div style="display:flex;align-items:center;margin:5px 0">
+                                                    <span style="display:inline-block;width:12px;height:12px;background:${param.color};border-radius:50%;margin-right:8px"></span>
+                                                    ${param.seriesName}: <span style="font-weight:bold;margin-left:5px">${value}</span>
+                                                </div>
+                                            `;
                                 });
                                 return result;
                             }
                         },
                         legend: {
                             data: ['人口城市化指标', '经济城市化指标', '空间城市化指标'],
-                            bottom: 20,
+                            bottom: 10,
                             textStyle: {
                                 color: '#e0e0e0',
                                 fontSize: 14
@@ -140,7 +164,7 @@
                         grid: {
                             left: '3%',
                             right: '4%',
-                            bottom: '12%',
+                            bottom: '15%',
                             top: '15%',
                             containLabel: true
                         },
