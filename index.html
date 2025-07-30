@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>长三角水资源生态数据分析</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
@@ -11,6 +12,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
+
         body {
             background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
             min-height: 100vh;
@@ -19,9 +21,10 @@
             align-items: center;
             padding: 20px;
         }
+
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(76, 175, 80, 0.15);
@@ -37,6 +40,7 @@
             position: relative;
             overflow: hidden;
         }
+
             header::before {
                 content: "";
                 position: absolute;
@@ -47,6 +51,7 @@
                 background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 40%);
                 pointer-events: none;
             }
+
         h1 {
             font-size: 2.2rem;
             margin-bottom: 8px;
@@ -56,6 +61,7 @@
             position: relative;
             color: white;
         }
+
         .subtitle {
             font-size: 1.1rem;
             opacity: 0.92;
@@ -65,15 +71,18 @@
             position: relative;
             color: rgba(255, 255, 255, 0.95);
         }
+
         .chart-container {
-            padding: 20px;
-            height: 470px;
+            padding: 15px 20px 5px; 
+            height: 450px; 
             position: relative;
         }
+
         #water-chart {
             width: 100%;
             height: 100%;
         }
+
         .loading-indicator {
             position: absolute;
             top: 50%;
@@ -82,27 +91,55 @@
             color: #4CAF50;
             font-weight: 500;
         }
+
+        .chart-caption {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 5px 0 15px;
+            padding: 0 20px;
+            border-top: 1px dashed #81c784;
+            padding-top: 12px;
+            letter-spacing: 0.5px;
+        }
+
         @media (max-width: 768px) {
             .chart-container {
-                height: 380px;
-                padding: 15px;
+                height: 350px; 
+                padding: 10px 15px 0;
             }
+
             h1 {
                 font-size: 1.6rem;
             }
+
             .subtitle {
                 font-size: 0.95rem;
             }
+
+            .chart-caption {
+                font-size: 14px;
+                margin: 0 0 10px;
+            }
         }
+
         @media (max-width: 480px) {
             header {
                 padding: 15px 20px;
             }
+
             .chart-container {
-                height: 320px;
+                height: 290px; 
             }
+
             h1 {
                 font-size: 1.4rem;
+            }
+
+            .chart-caption {
+                padding-top: 8px;
+                font-size: 13px;
             }
         }
     </style>
@@ -118,6 +155,8 @@
             <div id="water-chart"></div>
             <div class="loading-indicator">数据加载中...</div>
         </div>
+
+        <div class="chart-caption">图20 2010-2020年长三角水资源生态足迹、承载力和盈余变化趋势</div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -144,6 +183,7 @@
                     const footprintData = [0.95, 0.91, 0.89, 0.89, 0.85, 0.79, 0.80, 0.76, 0.73, 0.77, 0.67];
                     const capacityData = [1.85, 1.26, 1.86, 1.26, 1.58, 2.05, 2.41, 1.44, 1.41, 1.55, 1.96];
                     const surplusData = [0.91, 0.34, 0.98, 0.37, 0.73, 1.26, 1.62, 0.67, 0.67, 0.78, 1.29];
+
                     const option = {
                         animation: true,
                         animationDuration: 1000,
